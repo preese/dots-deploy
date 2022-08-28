@@ -1,0 +1,22 @@
+---
+- hosts: dots
+  become: yes
+  tasks:
+    - name: Create .config folder structure
+      ansible.builtin.copy:
+        backup: yes
+        dest: "/home/preese/"
+        src: "/home/preese//Work/dots-deploy/dotfiles/.config"
+
+    - name: Create data folder structure
+      ansible.builtin.copy:
+        backup: yes
+        dest: "/home/preese/"
+        src: "/home/preese/Work/dots-deploy/dotfiles/{{ item }}"
+      loop :
+        - .bash_profile
+        - .bashrc
+        - .vimrc
+
+
+

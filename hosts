@@ -1,0 +1,8 @@
+[dots]
+el0 ansible_host=192.168.1.33
+
+[insecuressh:children]
+dots
+
+[insecuressh:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
