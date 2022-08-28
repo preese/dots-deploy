@@ -21,15 +21,15 @@
     - name: Add a few generally needed repos to new systems
       dnf:
         name:
-          - {{ item }}
+          - "{{ item }}"
         state: present
-     loop:
+      loop:
        - wget
        - neofetch
        - inxi
        - htop
        - exa
-       - fd
+       - fd-find
        - bat
 #       - nethack-bitmap-fonts
 #       - nethack-bitmap-fonts-core
