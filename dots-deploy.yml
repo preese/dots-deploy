@@ -18,5 +18,20 @@
         - .bashrc
         - .vimrc
 
+    - name: Add a few generally needed repos to new systems
+      dnf:
+        name:
+          - {{ item }}
+        state: present
+     loop:
+       - wget
+       - neofetch
+       - inxi
+       - htop
+       - exa
+       - fd
+       - bat
+#       - nethack-bitmap-fonts
+#       - nethack-bitmap-fonts-core
 
 
