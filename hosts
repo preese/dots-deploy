@@ -1,5 +1,8 @@
 [dots]
-el0 ansible_host=192.168.1.33
+#el0 ansible_host=192.168.1.33
+ps5-1
+192.168.0.252
+amd
 
 [insecuressh:children]
 dots

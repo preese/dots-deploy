@@ -31,7 +31,8 @@
        - exa
        - fd-find
        - bat
-#       - nethack-bitmap-fonts
-#       - nethack-bitmap-fonts-core
+       - nethack-bitmap-fonts
+       - nethack-bitmap-fonts-core
+      when: ansible_facts['distribution'] == "Fedora"
 
 
