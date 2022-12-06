@@ -17,9 +17,10 @@
         - .bash_profile
         - .bashrc
         - .vimrc
+        - .ssh
 
     - name: Add a few generally needed repos to new systems
-      dnf:
+      ansible.builtin.dnf:
         name:
           - "{{ item }}"
         state: present
@@ -31,8 +32,7 @@
        - exa
        - fd-find
        - bat
-       - nethack-bitmap-fonts
-       - nethack-bitmap-fonts-core
       when: ansible_facts['distribution'] == "Fedora"
+
 
 
