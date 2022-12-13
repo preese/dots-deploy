@@ -6,13 +6,14 @@
       ansible.builtin.copy:
         backup: yes
         dest: "/home/preese/"
-        src: "/home/preese//Work/dots-deploy/dotfiles/.config"
+        src: "/home/preese/Work/ansible/dots-deploy/dotfiles/.config"
+        follow: yes
 
     - name: Create data folder structure
       ansible.builtin.copy:
         backup: yes
         dest: "/home/preese/"
-        src: "/home/preese/Work/dots-deploy/dotfiles/{{ item }}"
+        src: "/home/preese/Work/ansible/dots-deploy/dotfiles/{{ item }}"
       loop :
         - .bash_profile
         - .bashrc
@@ -25,6 +26,7 @@
           - "{{ item }}"
         state: present
       loop:
+       - dnf-automatic
        - wget
        - neofetch
        - inxi
@@ -33,6 +35,21 @@
        - fd-find
        - bat
       when: ansible_facts['distribution'] == "Fedora"
+
+    - name: Create data folder structure
+      ansible.builtin.copy:
+        dest: "/etc/dnf/"
+        src: "/home/preese/Work/ansible/dots-deploy/dotfiles/automatic.conf"
+        owner: root
+        group: root
+        mode: '0644'
+        backup: no
+
+    - name: Enable service dnf-automatic
+      ansible.builtin.service:
+        name: dnf-automatic.timer
+        enabled: yes
+        state: started
 
 
 
