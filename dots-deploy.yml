@@ -1,20 +1,35 @@
 ---
-- hosts: dots
-  become: yes
+- name: Set some states
+  hosts: dots
+  gather_facts: false
+  become: true
+
   tasks:
+
+    - name: Check script
+      ansible.builtin.service:
+        name: sshd
+        state: started
+        enabled: true
+
     - name: Create .config folder structure
       ansible.builtin.copy:
-        backup: yes
+        backup: true
         dest: "/home/preese/"
         src: "/home/preese/Work/ansible/dots-deploy/dotfiles/.config"
-        follow: yes
+        owner: preese
+        group: preese
+        mode: '0755'
 
     - name: Create data folder structure
       ansible.builtin.copy:
-        backup: yes
+        backup: true
         dest: "/home/preese/"
         src: "/home/preese/Work/ansible/dots-deploy/dotfiles/{{ item }}"
-      loop :
+        owner: preese
+        group: preese
+        mode: '0644'
+      loop:
         - .bash_profile
         - .bashrc
         - .vimrc
@@ -26,15 +41,17 @@
           - "{{ item }}"
         state: present
       loop:
-       - dnf-automatic
-       - wget
-       - neofetch
-       - inxi
-       - htop
-       - exa
-       - fd-find
-       - bat
-      when: ansible_facts['distribution'] == "Fedora"
+        - dnf-automatic
+        - wget
+        - tar
+        - dua-cli
+        - neofetch
+        - inxi
+        - htop
+        - exa
+        - fd-find
+        - bat
+        - source-foundry-hack-fonts
 
     - name: Create data folder structure
       ansible.builtin.copy:
@@ -43,13 +60,10 @@
         owner: root
         group: root
         mode: '0644'
-        backup: no
+        backup: false
 
     - name: Enable service dnf-automatic
       ansible.builtin.service:
         name: dnf-automatic.timer
-        enabled: yes
+        enabled: true
         state: started
-
-
-
