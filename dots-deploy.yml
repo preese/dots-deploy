@@ -35,6 +35,30 @@
         - .vimrc
         - .ssh
 
+    - name: add 2 iperf3 systemd files
+      ansible.builtin.copy:
+        dest: "/etc/systemd/system/"
+        src: "/home/preese/Work/ansible/dots-deploy/iperf3d/"
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Just force systemd to reread configs (2.4 and above)
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Start two iperf3 daemons as a service 
+      ansible.builtin.systemd:
+        name: iperf3
+        state: started
+        enabled: true
+
+    - name: Start two iperf3 daemons as a user service 
+      ansible.builtin.systemd:
+        name: iperf3-02
+        state: started
+        enabled: true
+
     - name: Add a few generally needed repos to new systems
       ansible.builtin.dnf:
         name:

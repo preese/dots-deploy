@@ -1,0 +1,10 @@
+[Unit]
+Description=IPerf3 Speed Test Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/iperf3 --server --port 5202
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
