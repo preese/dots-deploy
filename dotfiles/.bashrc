@@ -38,6 +38,7 @@ shopt -s extglob       # Necessary for programmable completion.
 alias sups="ssh -NT -L 1234:trident.stanford.edu:443 networker@srn-dm.stanford.edu"
 alias hpr="ssh -NT -L 1235:ps-100g-hpr02.stanford.edu:9090 networker@srn-dm.stanford.edu"
 alias dn="sudo dnf -y "
+alias ip4="ip -4 -c -br a"
 alias tmuxx=zellij
 alias cat='bat -P'
 alias more=bat
