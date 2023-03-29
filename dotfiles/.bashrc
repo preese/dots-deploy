@@ -11,6 +11,16 @@ if [ -f /etc/bashrc ]; then
       . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging featu  re:
+# export SYSTEMD_PAGER=
+
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
@@ -38,7 +48,8 @@ shopt -s extglob       # Necessary for programmable completion.
 alias sups="ssh -NT -L 1234:trident.stanford.edu:443 networker@srn-dm.stanford.edu"
 alias hpr="ssh -NT -L 1235:ps-100g-hpr02.stanford.edu:9090 networker@srn-dm.stanford.edu"
 alias dn="sudo dnf -y "
-alias ip4="ip -4 -c -br a"
+alias ip4="ip -4 -br a"
+alias ip="ip -c"
 alias tmuxx=zellij
 alias cat='bat -P'
 alias more=bat

@@ -66,6 +66,7 @@
         state: present
       loop:
         - dnf-automatic
+        - ethtool
         - wget
         - tar
         - dua-cli

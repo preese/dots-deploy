@@ -1,13 +1,18 @@
 [global_config]
   title_use_system_font = False
-  title_font = Source Code Pro Semi-Bold 14
+  title_font = Hack Bold 16
 [keybindings]
+  copy = <Super>c
+  paste = <Super>v
 [profiles]
   [[default]]
     cursor_color = "#aaaaaa"
-    font = Source Code Pro Semi-Bold 16
-    scroll_on_keystroke = False
+    font = Hack Bold 16
+    scroll_on_output = True
     scrollback_infinite = True
+    use_system_font = False
+    copy_on_selection = True
+    scroll_on_keystroke = True
     use_system_font = False
 [layouts]
   [[default]]
