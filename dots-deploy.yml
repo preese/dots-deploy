@@ -34,7 +34,22 @@
         - .bashrc
         - .vimrc
         - .ssh
-        - .local/bin/krestart.sh
+
+    - name: make bin dir in home dir
+      ansible.builtin.copy:
+        dest: "/home/preese/"
+        src: "/home/preese/Work/ansible/dots-deploy/bin/"
+        owner: preese
+        group: preese
+        mode: '0755'
+
+    - name: add krestart.sh to $HOME/bin dir
+      ansible.builtin.copy:
+        dest: "/home/preese/bin/"
+        src: "/home/preese/Work/ansible/dots-deploy/bin/krestart.sh/"
+        owner: preese
+        group: preese
+        mode: '0755'
 
     - name: add 2 iperf3 systemd files
       ansible.builtin.copy:
@@ -87,8 +102,9 @@
     - name: Enable port 9090 to be in public zone
       ansible.posix.firewalld:
         zone: public
-        port: 9090/tcp
+        sevice: cockpit
         permanent: true
+        immediate: true
         state: enabled
 
     - name: Create data folder structure
