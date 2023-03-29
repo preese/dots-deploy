@@ -34,7 +34,7 @@
         - .bashrc
         - .vimrc
         - .ssh
-        - bin/krestart.sh
+        - .local/bin/krestart.sh
 
     - name: add 2 iperf3 systemd files
       ansible.builtin.copy:
@@ -73,7 +73,6 @@
         - cockpit-packagekit
         - cockpit-machines
         - cockpit-selinux
-        - cockpit-sensors
         - wget
         - tar
         - dua-cli
@@ -86,12 +85,12 @@
         - source-foundry-hack-fonts
 
     - name: Enable port 9090 to be in public zone
-      firewalld:
+      ansible.posix.firewalld:
         zone: public
         port: 9090/tcp
         permanent: true
         state: enabled
-	
+
     - name: Create data folder structure
       ansible.builtin.copy:
         dest: "/etc/dnf/"
