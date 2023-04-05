@@ -46,7 +46,7 @@
     - name: add krestart.sh to $HOME/bin dir
       ansible.builtin.copy:
         dest: "/home/preese/bin/"
-        src: "/home/preese/Work/ansible/dots-deploy/bin/krestart.sh/"
+        src: "/home/preese/Work/ansible/dots-deploy/bin/krestart.sh"
         owner: preese
         group: preese
         mode: '0755'
@@ -63,6 +63,31 @@
       ansible.builtin.systemd:
         daemon_reload: true
 
+    - name: Add a few generally needed repos to new systems
+      ansible.builtin.dnf:
+        name:
+          - "{{ item }}"
+        state: present
+      loop:
+        - bat
+        - cockpit
+        - cockpit-machines
+        - cockpit-networkmanager
+        - cockpit-packagekit
+        - cockpit-selinux
+        - dnf-automatic
+        - dua-cli
+        - ethtool
+        - exa
+        - fd-find
+        - htop
+        - inxi
+        - iperf3
+        - neofetch
+        - source-foundry-hack-fonts
+        - tar
+        - wget
+
     - name: Start two iperf3 daemons as a service 
       ansible.builtin.systemd:
         name: iperf3
@@ -75,34 +100,18 @@
         state: started
         enabled: true
 
-    - name: Add a few generally needed repos to new systems
-      ansible.builtin.dnf:
-        name:
-          - "{{ item }}"
-        state: present
-      loop:
-        - dnf-automatic
-        - ethtool
-        - cockpit
-        - cockpit-networkmanager
-        - cockpit-packagekit
-        - cockpit-machines
-        - cockpit-selinux
-        - wget
-        - tar
-        - dua-cli
-        - neofetch
-        - inxi
-        - htop
-        - exa
-        - fd-find
-        - bat
-        - source-foundry-hack-fonts
+    - name: Enable port 5201-5202 for iperf3 daemons
+      ansible.posix.firewalld:
+        zone: public
+        port: 5201-5202/tcp
+        permanent: true
+        immediate: true
+        state: enabled
 
     - name: Enable port 9090 to be in public zone
       ansible.posix.firewalld:
         zone: public
-        sevice: cockpit
+        service: cockpit
         permanent: true
         immediate: true
         state: enabled
