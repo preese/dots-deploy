@@ -57,7 +57,8 @@ alias m=bat
 export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
 # export LESS="--RAW-CONTROL-CHARS --file-size --LONG-PROMPT"
 #alias rm='rm -i'
-#alias cp='cp -i'
+alias cp='cp -p'
+alias scp='scp -p'
 #alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
@@ -106,13 +107,14 @@ alias nsg='ss -natp | grep -i $1'
 #-------------------------------------------------------------
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
-alias ls=' exa --group-directories-first'
+alias ls=' eza --group-directories-first'
 alias la=' ls -al'
 alias laa=' ls -alg'
 alias lx='ls --sort=extension'         #  Sort by extension.
 alias lk='ls --sort=size'         #  Sort by size, biggest last.
 alias lt='ls --sort=changed'         #  Sort by date, most recent last.
 alias lu='ls --sort=accessed'        #  Sort by/show access time,most recent last.
+alias ll='ls -l --color=auto'
 
 # append a session's history on shell exit
 export HISTFILESIZE=
